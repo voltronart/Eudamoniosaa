@@ -1,0 +1,316 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at top, rgba(20, 130, 70, 0.18), transparent 25%),
+        radial-gradient(circle at bottom left, rgba(0, 255, 128, 0.08), transparent 28%),
+        linear-gradient(to bottom, #050505 0%, #0a0a0a 45%, #020202 100%);
+    color: #ffffff;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/* CAMADA DE TRANSIÇÃO */
+.transition-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    pointer-events: none;
+    opacity: 0;
+    background:
+        linear-gradient(115deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(120, 255, 180, 0.08) 20%,
+            rgba(120, 255, 180, 0.22) 35%,
+            rgba(255, 255, 255, 0.05) 48%,
+            rgba(0, 0, 0, 0.15) 60%,
+            rgba(0, 0, 0, 0.95) 100%);
+    transform: translateX(-120%) skewX(-12deg);
+}
+
+.transition-overlay.active {
+    opacity: 1;
+    animation: windTransition 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* TELA */
+.login-screen {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    overflow: hidden;
+}
+
+/* FUNDO */
+.bg-layer {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 50% 30%, rgba(30, 255, 130, 0.08), transparent 22%),
+        radial-gradient(circle at 20% 70%, rgba(30, 180, 90, 0.06), transparent 25%),
+        radial-gradient(circle at 80% 20%, rgba(100, 255, 180, 0.06), transparent 18%);
+    filter: blur(10px);
+    animation: pulseBg 7s ease-in-out infinite alternate;
+}
+
+/* CONTEÚDO */
+.content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+    animation: fadeUp 1s ease;
+}
+
+.title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 600;
+    margin-bottom: 48px;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+/* PERFIS */
+.profiles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+.profile-card {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    transition: transform 0.3s ease;
+}
+
+.profile-card:hover {
+    transform: scale(1.04);
+}
+
+.avatar {
+    width: 170px;
+    height: 170px;
+    border-radius: 14px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:
+        linear-gradient(135deg, #0f2016 0%, #163524 35%, #1ed760 100%);
+    box-shadow:
+        0 0 0 3px rgba(255, 255, 255, 0.08),
+        0 20px 40px rgba(0, 0, 0, 0.45),
+        0 0 35px rgba(30, 215, 96, 0.18);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.avatar::before {
+    content: "";
+    position: absolute;
+    inset: -30%;
+    background:
+        linear-gradient(130deg,
+            transparent 20%,
+            rgba(255, 255, 255, 0.08) 40%,
+            transparent 60%);
+    transform: rotate(8deg);
+}
+
+.avatar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.16), transparent 22%),
+        radial-gradient(circle at 70% 75%, rgba(0, 0, 0, 0.18), transparent 35%);
+}
+
+.profile-card:hover .avatar {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow:
+        0 0 0 3px rgba(255, 255, 255, 0.18),
+        0 24px 50px rgba(0, 0, 0, 0.5),
+        0 0 45px rgba(30, 215, 96, 0.3);
+}
+
+.avatar span {
+    position: relative;
+    z-index: 2;
+    font-size: 4.8rem;
+    font-weight: 700;
+    color: #effff5;
+    text-shadow: 0 0 18px rgba(255, 255, 255, 0.12);
+}
+
+.profile-name {
+    font-size: 1.2rem;
+    color: #b8b8b8;
+    transition: color 0.3s ease;
+}
+
+.profile-card:hover .profile-name {
+    color: #ffffff;
+}
+
+/* EFEITO EXTRA DE BRISA/VAPOR */
+.login-screen::before,
+.login-screen::after {
+    content: "";
+    position: absolute;
+    width: 45vw;
+    height: 45vw;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.login-screen::before {
+    top: 10%;
+    left: -10%;
+    background: #2bff88;
+    animation: driftLeft 12s ease-in-out infinite alternate;
+}
+
+.login-screen::after {
+    bottom: 0;
+    right: -10%;
+    background: #16a34a;
+    animation: driftRight 14s ease-in-out infinite alternate;
+}
+
+/* ANIMAÇÕES */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulseBg {
+    0% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: scale(1.06);
+        opacity: 1;
+    }
+}
+
+@keyframes driftLeft {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(80px, -40px);
+    }
+}
+
+@keyframes driftRight {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(-60px, 30px);
+    }
+}
+
+@keyframes windTransition {
+    0% {
+        opacity: 0.15;
+        transform: translateX(-120%) skewX(-12deg);
+        filter: blur(0px);
+    }
+
+    30% {
+        opacity: 0.9;
+        transform: translateX(-20%) skewX(-12deg);
+        filter: blur(1px);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translateX(15%) skewX(-12deg);
+        filter: blur(0px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(120%) skewX(-12deg);
+        filter: blur(2px);
+    }
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+    .title {
+        margin-bottom: 36px;
+    }
+
+    .avatar {
+        width: 140px;
+        height: 140px;
+        border-radius: 12px;
+    }
+
+    .avatar span {
+        font-size: 4rem;
+    }
+
+    .profile-name {
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-screen {
+        padding: 30px 16px;
+    }
+
+    .title {
+        font-size: 1.8rem;
+        margin-bottom: 28px;
+    }
+
+    .avatar {
+        width: 118px;
+        height: 118px;
+        border-radius: 10px;
+    }
+
+    .avatar span {
+        font-size: 3.2rem;
+    }
+
+    .profile-name {
+        font-size: 0.95rem;
+    }
+}

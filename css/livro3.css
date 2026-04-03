@@ -1,0 +1,331 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body.livro-body {
+    font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+    background:
+        radial-gradient(circle at top, rgba(255, 208, 94, 0.22), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(77, 166, 124, 0.18), transparent 30%),
+        linear-gradient(180deg, #0f2d2a 0%, #17413b 30%, #355f3a 58%, #d68a3c 100%);
+    color: #fff9ef;
+    overflow-x: hidden;
+}
+
+/* HEADER */
+.livro-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(8, 24, 22, 0.72), transparent);
+    backdrop-filter: blur(6px);
+}
+
+.livro-voltar {
+    color: #fffaf2;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: 0.3s ease;
+    opacity: 0.92;
+}
+
+.livro-voltar:hover {
+    opacity: 1;
+    transform: translateX(-3px);
+}
+
+.livro-logo {
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ffe08b;
+}
+
+/* MAIN */
+.livro-main {
+    width: 100%;
+}
+
+/* HERO */
+.livro-hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 8vw 60px;
+}
+
+.livro3-hero {
+    position: relative;
+    background:
+        linear-gradient(to right, rgba(8, 24, 22, 0.90), rgba(8, 24, 22, 0.38)),
+        radial-gradient(circle at 75% 30%, rgba(255, 207, 87, 0.18), transparent 18%),
+        radial-gradient(circle at 85% 20%, rgba(255, 255, 255, 0.08), transparent 12%);
+}
+
+.livro3-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to top, rgba(12, 40, 30, 0.35), transparent),
+        repeating-linear-gradient(90deg,
+            rgba(255, 255, 255, 0.015) 0px,
+            rgba(255, 255, 255, 0.015) 1px,
+            transparent 1px,
+            transparent 90px);
+    pointer-events: none;
+}
+
+.livro-capa {
+    position: relative;
+    z-index: 2;
+    max-width: 730px;
+}
+
+.livro-tag {
+    display: inline-block;
+    margin-bottom: 18px;
+    padding: 8px 15px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 224, 139, 0.28);
+    background: rgba(255, 255, 255, 0.04);
+    color: #ffe08b;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.livro-pretitle {
+    font-size: 0.98rem;
+    color: #f9e5bf;
+    margin-bottom: 16px;
+    opacity: 0.95;
+}
+
+.livro-capa h1 {
+    font-size: clamp(2.8rem, 6vw, 5.8rem);
+    line-height: 0.95;
+    margin-bottom: 22px;
+    color: #fffdf7;
+    text-shadow: 0 8px 28px rgba(0, 0, 0, 0.24);
+}
+
+.livro-subtitle {
+    max-width: 590px;
+    font-size: 1.08rem;
+    line-height: 1.9;
+    color: #fff2da;
+    margin-bottom: 30px;
+}
+
+.livro-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.livro-btn-primary,
+.livro-btn-secondary {
+    border: none;
+    padding: 14px 24px;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.livro-btn-primary {
+    background: linear-gradient(135deg, #ffe08b, #f6b24b);
+    color: #1b1a13;
+    font-weight: bold;
+    box-shadow: 0 12px 30px rgba(246, 178, 75, 0.28);
+}
+
+.livro-btn-secondary {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fffef9;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(8px);
+}
+
+.livro-btn-primary:hover,
+.livro-btn-secondary:hover {
+    transform: translateY(-3px);
+}
+
+/* ÁREA HORIZONTAL */
+.livro-horizontal-section {
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.livro-horizontal-wrapper {
+    height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+
+.livro-horizontal-wrapper::-webkit-scrollbar {
+    height: 10px;
+}
+
+.livro-horizontal-wrapper::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.livro-horizontal-wrapper::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #f6b24b, #ffe08b);
+    border-radius: 999px;
+}
+
+/* PÁGINAS */
+.livro-page {
+    min-width: 100vw;
+    height: 100vh;
+    padding: 120px 8vw 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    scroll-snap-align: start;
+    position: relative;
+}
+
+/* alternância de clima entre páginas */
+.livro-page:nth-child(1),
+.livro-page:nth-child(5) {
+    background:
+        radial-gradient(circle at top right, rgba(255, 215, 105, 0.16), transparent 25%),
+        linear-gradient(180deg, #153632 0%, #1d4f44 100%);
+}
+
+.livro-page:nth-child(2),
+.livro-page:nth-child(6) {
+    background:
+        radial-gradient(circle at bottom left, rgba(255, 170, 64, 0.16), transparent 25%),
+        linear-gradient(180deg, #1b4938 0%, #4e6f37 100%);
+}
+
+.livro-page:nth-child(3),
+.livro-page:nth-child(7) {
+    background:
+        radial-gradient(circle at top left, rgba(255, 235, 160, 0.14), transparent 22%),
+        linear-gradient(180deg, #214739 0%, #8b6d34 100%);
+}
+
+.livro-page:nth-child(4),
+.livro-page:nth-child(8) {
+    background:
+        radial-gradient(circle at bottom right, rgba(255, 208, 94, 0.18), transparent 24%),
+        linear-gradient(180deg, #3d5f37 0%, #cc7a38 100%);
+}
+
+.livro-page::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to top, rgba(0, 0, 0, 0.12), transparent 40%),
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.03), transparent 18%);
+    pointer-events: none;
+}
+
+/* CAIXA DE CONTEÚDO */
+.livro-page-content {
+    position: relative;
+    z-index: 2;
+    width: min(760px, 100%);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 248, 230, 0.14);
+    border-radius: 30px;
+    padding: 50px 42px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+}
+
+.page-number {
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 0.88rem;
+    letter-spacing: 2px;
+    color: #ffe08b;
+}
+
+.livro-page-content h2 {
+    font-size: clamp(1.9rem, 3vw, 3.1rem);
+    margin-bottom: 24px;
+    color: #fffdf7;
+}
+
+.livro-page-content p {
+    font-size: 1.1rem;
+    line-height: 1.95;
+    color: #fff3df;
+    margin-bottom: 18px;
+}
+
+.livro-final {
+    color: #fffdf5;
+    font-weight: bold;
+    font-size: 1.14rem;
+}
+
+/* sensação mais orgânica */
+.livro-page-content:hover {
+    transform: translateY(-2px);
+    transition: 0.3s ease;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+    .livro-header {
+        padding: 16px 20px;
+    }
+
+    .livro-hero,
+    .livro-page {
+        padding: 110px 20px 40px;
+    }
+
+    .livro-capa h1 {
+        line-height: 1.02;
+    }
+
+    .livro-actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .livro-page-content {
+        padding: 32px 22px;
+        border-radius: 22px;
+    }
+
+    .livro-page-content p {
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+
+    .livro-subtitle {
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+}

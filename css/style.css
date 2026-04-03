@@ -1,0 +1,586 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.netflix-home {
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at top, rgba(44, 150, 88, 0.18), transparent 30%),
+        radial-gradient(circle at 20% 80%, rgba(0, 255, 140, 0.08), transparent 25%),
+        radial-gradient(circle at 80% 20%, rgba(0, 255, 128, 0.06), transparent 22%),
+        linear-gradient(to bottom, #020705 0%, #07110c 45%, #020504 100%);
+    color: #ffffff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* CAMADAS DE FUNDO */
+.bg-particles,
+.bg-glow {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+
+.bg-particles {
+    z-index: 0;
+    overflow: hidden;
+}
+
+.bg-glow {
+    z-index: 0;
+    background:
+        radial-gradient(circle at 15% 30%, rgba(70, 255, 155, 0.08), transparent 20%),
+        radial-gradient(circle at 85% 20%, rgba(100, 255, 180, 0.05), transparent 20%),
+        radial-gradient(circle at 50% 80%, rgba(40, 180, 95, 0.05), transparent 30%);
+    animation: pulseGlow 8s ease-in-out infinite alternate;
+}
+
+.bg-particles::before,
+.bg-particles::after {
+    content: "";
+    position: absolute;
+    inset: -10%;
+    background-repeat: repeat;
+    opacity: 0.35;
+}
+
+.bg-particles::before {
+    background-image:
+        radial-gradient(circle, rgba(140, 255, 190, 0.55) 1px, transparent 1.8px),
+        radial-gradient(circle, rgba(90, 255, 160, 0.25) 1.5px, transparent 2px),
+        radial-gradient(circle, rgba(200, 255, 230, 0.15) 1px, transparent 2px);
+    background-size: 200px 200px, 260px 260px, 320px 320px;
+    animation: driftOne 28s linear infinite;
+}
+
+.bg-particles::after {
+    background-image:
+        radial-gradient(circle, rgba(70, 255, 155, 0.28) 1.5px, transparent 2px),
+        radial-gradient(circle, rgba(150, 255, 210, 0.12) 2px, transparent 3px);
+    background-size: 240px 240px, 340px 340px;
+    animation: driftTwo 40s linear infinite reverse;
+}
+
+/* HEADER */
+.netflix-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 18px 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.78), transparent);
+    transition: background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
+}
+
+.netflix-header.scrolled {
+    background: rgba(3, 10, 7, 0.88);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.site-logo {
+    font-size: 1.9rem;
+    color: #8cffc2;
+    letter-spacing: 1px;
+    text-shadow: 0 0 18px rgba(120, 255, 180, 0.18);
+    white-space: nowrap;
+}
+
+.nav-links {
+    display: flex;
+    gap: 18px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 0.95rem;
+    transition: 0.3s ease;
+    white-space: nowrap;
+}
+
+.nav-links a:hover {
+    color: #a7ffd0;
+}
+
+.profile-mini {
+    display: flex;
+    align-items: center;
+}
+
+.mini-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #1ed760, #0f6d35);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #041108;
+    font-weight: bold;
+    box-shadow: 0 0 20px rgba(30, 215, 96, 0.28);
+}
+
+/* HERO */
+.hero-banner {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 4%;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+        linear-gradient(to top, rgba(2, 5, 4, 1) 0%, rgba(2, 5, 4, 0.2) 35%, rgba(2, 5, 4, 0.55) 100%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 620px;
+    margin-top: 60px;
+    animation: fadeUp 1.2s ease;
+}
+
+.hero-tag {
+    display: inline-block;
+    margin-bottom: 14px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(120, 255, 180, 0.22);
+    background: rgba(16, 50, 30, 0.22);
+    color: #9effcb;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    backdrop-filter: blur(8px);
+}
+
+.hero-content h2 {
+    font-size: 4rem;
+    line-height: 1.05;
+    margin-bottom: 18px;
+    text-shadow: 0 0 24px rgba(0, 255, 128, 0.08);
+}
+
+.hero-content p {
+    font-size: 1.08rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.88);
+    margin-bottom: 28px;
+    max-width: 580px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.btn-play,
+.btn-info {
+    text-decoration: none;
+    padding: 14px 26px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+}
+
+.btn-play {
+    background: #ffffff;
+    color: #000000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.btn-play:hover {
+    background: rgba(255, 255, 255, 0.88);
+    transform: scale(1.03);
+}
+
+.btn-info {
+    background: rgba(109, 109, 110, 0.7);
+    color: #ffffff;
+    border: none;
+    backdrop-filter: blur(8px);
+}
+
+.btn-info:hover {
+    background: rgba(109, 109, 110, 0.9);
+    transform: scale(1.03);
+}
+
+/* CATÁLOGO */
+.catalog-section {
+    position: relative;
+    z-index: 2;
+    padding: 10px 4% 70px;
+    margin-top: -80px;
+}
+
+.row-block {
+    margin-bottom: 34px;
+}
+
+.row-title {
+    font-size: 1.4rem;
+    margin-bottom: 14px;
+    color: #e5ffef;
+}
+
+/* fileira estilo Netflix */
+.cards-row {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 8px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.cards-row::-webkit-scrollbar {
+    display: none;
+}
+
+.serie-card {
+    position: relative;
+    flex: 0 0 260px;
+    width: 260px;
+    height: 380px;
+    border-radius: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #ffffff;
+    background: #101010;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.32);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.serie-card:hover {
+    transform: scale(1.06);
+    box-shadow: 0 18px 40px rgba(0, 255, 128, 0.16);
+    z-index: 5;
+}
+
+.serie-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.card-shadow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.1));
+}
+
+.card-info {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 2;
+    padding: 18px;
+}
+
+.card-info h4 {
+    font-size: 1.12rem;
+    margin-bottom: 8px;
+}
+
+.card-info p {
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.82);
+    line-height: 1.45;
+}
+
+/* PARTÍCULAS */
+.particle {
+    position: absolute;
+    display: block;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(180, 255, 215, 1) 0%, rgba(50, 217, 111, 0.85) 55%, rgba(50, 217, 111, 0) 100%);
+    box-shadow:
+        0 0 8px rgba(90, 255, 160, 0.35),
+        0 0 20px rgba(90, 255, 160, 0.12);
+    animation: riseParticle linear infinite;
+}
+
+.particle.small {
+    filter: blur(0.2px);
+}
+
+.particle.medium {
+    filter: blur(0.5px);
+}
+
+.particle.large {
+    filter: blur(0.8px);
+}
+
+/* ANIMAÇÕES */
+@keyframes riseParticle {
+    0% {
+        transform: translateY(0) translateX(0) scale(0.8);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(-50vh) translateX(18px) scale(1.08);
+    }
+
+    100% {
+        transform: translateY(-110vh) translateX(-26px) scale(0.9);
+        opacity: 0;
+    }
+}
+
+@keyframes driftOne {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+
+    50% {
+        transform: translateY(-30px) translateX(20px);
+    }
+
+    100% {
+        transform: translateY(-60px) translateX(-10px);
+    }
+}
+
+@keyframes driftTwo {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+
+    50% {
+        transform: translateY(-50px) translateX(-16px);
+    }
+
+    100% {
+        transform: translateY(-90px) translateX(12px);
+    }
+}
+
+@keyframes pulseGlow {
+    0% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: scale(1.04);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* TABLET */
+@media (max-width: 992px) {
+    .hero-banner {
+        min-height: 90vh;
+    }
+
+    .hero-content {
+        max-width: 540px;
+    }
+
+    .hero-content h2 {
+        font-size: 3.2rem;
+    }
+
+    .serie-card {
+        flex: 0 0 220px;
+        width: 220px;
+        height: 330px;
+    }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .netflix-header {
+        padding: 16px 4%;
+    }
+
+    .logo-area {
+        gap: 14px;
+    }
+
+    .site-logo {
+        font-size: 1.4rem;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .mini-avatar {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+    }
+
+    .hero-banner {
+        min-height: 82vh;
+        align-items: flex-end;
+        padding: 0 4% 70px;
+    }
+
+    .hero-content {
+        max-width: 100%;
+        margin-top: 0;
+    }
+
+    .hero-tag {
+        font-size: 0.72rem;
+    }
+
+    .hero-content h2 {
+        font-size: 2.5rem;
+        margin-bottom: 14px;
+    }
+
+    .hero-content p {
+        font-size: 0.98rem;
+        line-height: 1.6;
+        margin-bottom: 22px;
+        max-width: 100%;
+    }
+
+    .hero-buttons {
+        gap: 10px;
+    }
+
+    .btn-play,
+    .btn-info {
+        padding: 12px 18px;
+        min-height: 46px;
+        font-size: 0.95rem;
+    }
+
+    .catalog-section {
+        padding: 0 4% 50px;
+        margin-top: -30px;
+    }
+
+    .row-title {
+        font-size: 1.15rem;
+    }
+
+    .cards-row {
+        gap: 10px;
+    }
+
+    .serie-card {
+        flex: 0 0 160px;
+        width: 160px;
+        height: 240px;
+        border-radius: 8px;
+    }
+
+    .card-info {
+        padding: 12px;
+    }
+
+    .card-info h4 {
+        font-size: 0.95rem;
+        margin-bottom: 4px;
+    }
+
+    .card-info p {
+        font-size: 0.78rem;
+        line-height: 1.35;
+    }
+}
+
+/* MOBILE PEQUENO */
+@media (max-width: 480px) {
+    .netflix-header {
+        padding: 14px 4%;
+    }
+
+    .site-logo {
+        font-size: 1.2rem;
+    }
+
+    .hero-banner {
+        min-height: 78vh;
+        padding: 0 4% 55px;
+    }
+
+    .hero-content h2 {
+        font-size: 2rem;
+        line-height: 1.08;
+    }
+
+    .hero-content p {
+        font-size: 0.92rem;
+    }
+
+    .hero-buttons {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .btn-play,
+    .btn-info {
+        flex: 1 1 auto;
+        font-size: 0.9rem;
+        padding: 11px 14px;
+    }
+
+    .serie-card {
+        flex: 0 0 140px;
+        width: 140px;
+        height: 210px;
+    }
+
+    .card-info h4 {
+        font-size: 0.88rem;
+    }
+
+    .card-info p {
+        display: none;
+    }
+}
